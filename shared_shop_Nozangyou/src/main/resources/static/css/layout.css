@@ -1,0 +1,171 @@
+@CHARSET "UTF-8";
+
+/* ---- 共通 ---- */
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.content {
+	width: 900px;
+	margin: 0px auto;
+}
+
+/* ---- ヘッダー ---- */
+header {
+	height: 100px;
+	width: 100%;
+	background-color: #030046;
+	color:white;
+}
+
+header .title {
+	margin-left: 10px;
+	float: left;
+	line-height: 45px;
+	font-size: 25pt;
+	font-family: fantasy;
+}
+
+header .user_info {
+	margin-right: 20px;
+	line-height: 45px;
+	text-align: right;
+}
+
+header .user_info a {
+	text-decoration: none;
+	color:white;
+}
+
+header .user_info a:hover{
+	text-decoration: underline;
+}
+
+/* ---- ナビゲーションバー ---- */
+nav {
+	height: 50px;
+}
+
+nav a {
+	display: block;
+	width: 200px;
+	height: 35px;
+	float: left;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #a9a9a9;
+	margin-top: 7px;
+	text-align: center;
+	line-height: 35px;
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+/* ---- メニューボタン(左) ---- */
+nav a.left {
+	border-radius: 6px 0px 0px 6px;
+	margin-left: 10px;
+}
+
+/* ---- メニューボタン(中央) ---- */
+nav a.center {
+	border-left: none;
+}
+
+/* ---- メニューボタン(右) ---- */
+nav a.right {
+	border-radius: 0px 6px 6px 0px;
+	border-left: none;
+}
+
+/* ---- サイドバー ---- */
+aside {
+	float: left;
+	width: 230px;
+}
+
+aside .title {
+	background-color: #adadad;
+	margin: 5px 5px 10px 10px;
+	padding: 3px;
+	font-weight: bold;
+}
+
+aside .menu {
+	margin: 0px 5px 15px 10px;
+}
+
+aside a {
+	color: black;
+}
+
+aside select {
+	margin: 0px 10px 0px 10px;
+	vertical-align: middle;
+	font-size: inherit;
+	color: inherit;
+	width: 60%;
+}
+
+aside input[type=submit] {
+	width: 55px;
+	margin-right: 5px;
+}
+
+aside a.price {
+	display: block;
+	padding: 5px;
+	margin: 0 5px 0 5px;
+	border-width: 1px;
+	border-style: solid;
+	border-bottom-color: #adadad;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+aside a.top {
+	border-radius: 6px 6px 0px 0px;
+	border-bottom: none;
+}
+
+aside a.middle {
+	border-bottom: none;
+}
+
+aside a.bottom {
+	border-radius: 0px 0px 6px 6px;
+}
+
+
+/* ---- メイン ---- */
+article#main {
+	float: left;
+	width: 670px;
+}
+
+article .title {
+	background-color: #adadad;
+	margin-top: 5px;
+	margin-right: 10px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	padding: 3px;
+	font-weight: bold;
+}
+
+article .container {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+/* ---- フッター ---- */
+footer {
+	clear: both;
+	height: 30px;
+	background-color: #030046;
+	padding-top: 8px;
+	text-align: center;
+	color:white;
+}

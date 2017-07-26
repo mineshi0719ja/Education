@@ -1,0 +1,347 @@
+@CHARSET "UTF-8";
+
+/* ---- テキスト系 ---- */
+.container .text {
+	font-weight: bold;
+	clear: both;
+}
+
+p {
+	margin: 15px 0;
+}
+
+h2 {
+	margin-left: 15px;
+}
+
+/* ---- ボタン(機能呼出) ---- */
+input[type=submit].menu_button {
+	width: 120px;
+	height: 35px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #808080;
+	padding: 0px 10px;
+	margin: 15px 10px 15px 10px;
+	border-radius: 6px;
+	font-weight: bold;
+}
+
+/* ---- ボタン(一覧からの編集、削除) ---- */
+input[type=submit].list {
+	width: 80px;
+}
+
+/* ---- ボタン(削除) ---- */
+input[type=submit].delete {
+	background: #d22222;
+	color: white;
+}
+
+/* ---- ボタン(商品個数指定) ---- */
+input[type=button] {
+	height: 25px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #808080;
+	padding: 0px 10px;
+	margin: 15px 5px 15px 5px;
+	font-weight: normal;
+}
+
+/* ---- 商品情報 ---- */
+div.item {
+	width: 300px;
+	height: 160px;
+	margin: 5px;
+	padding: 5px;
+	border: 1px solid gray;
+	border-radius: 6px;
+	float: left;
+}
+
+div.item img {
+	width: 120px;
+	height: 120px;
+	display: block;
+	border-radius: 6px;
+	margin: 0px auto 10px;
+}
+
+div.item .itemName {
+	padding: 5px;
+	color: #4169e1;
+	font-weight: bold;
+}
+
+div.item .description {
+	padding: 5px;
+	color: #4169e1;
+	font-weight: bold;
+}
+
+div.sortType {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding-left: 15px;
+}
+
+/* ---- 入力フォーム ---- */
+.container input[type=text] {
+	width: 30%;
+	height: 30px;
+	border-radius: 6px;
+	border: 1px solid gray;
+	margin: 10px 0;
+}
+
+.container input[type=password] {
+	width: 30%;
+	height: 30px;
+	border-radius: 6px;
+	border: 1px solid gray;
+	margin: 10px 0;
+}
+
+.container input[type=submit] {
+	min-width: 80px;
+	height: 35px;
+	border-radius: 6px;
+	border: 1px solid gray;
+	padding: 0 10px;
+	margin: 10px 0;
+	font-weight: bold;
+}
+
+.container textarea {
+	width: 30%;
+	border-radius: 6px;
+	border: 1px solid gray;
+	margin: 10px 0;
+}
+
+.container input[type=file] {
+	width: 30%;
+	margin: 10px 0;
+}
+
+.container select {
+	width: 30%;
+	height: 34px;
+	border: 1px solid gray;
+	border-radius: 6px;
+	margin: 10px 0;
+}
+
+/* ---- テーブル ---- */
+table {
+	width: 620px;
+	border: 1px solid gray;
+	border-collapse: collapse;
+	text-align: left;
+	font-weight: bold;
+	margin: 0px auto;
+}
+
+.address table, .pay table {
+	width: 96%;
+	margin: 0 auto 20px auto;
+}
+
+table.orderDelete {
+	margin-top: 15px;
+}
+
+table.orderDetail {
+	margin-top: 15px;
+}
+
+tr.column {
+	background: #f5f5f5;
+}
+
+td {
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+	padding: 5px;
+}
+
+td.id {
+	width: 50px;
+}
+
+td.name {
+	width: 200px;
+}
+
+td.price {
+	width: 60px;
+}
+
+td.category {
+	width: 80px;
+}
+
+td.image {
+	width: 70px;
+}
+
+td.image img {
+	width: 60px;
+	height: 60px;
+	display: block;
+	margin: 0px auto;
+}
+
+td.columnName {
+	width: 170px;
+	background: #f5f5f5;
+}
+
+td.value {
+	width: 450px;
+}
+
+td a {
+	text-decoration: none;
+	coloer: #4169e1;
+}
+
+/* ---- トップ画面(一般会員、非会員向け) ---- */
+article.top {
+	width:300px;
+	height:180px;
+	padding-top:10px;
+	border-style:solid;
+	border-width:1px;
+	border-color:#aaaaff;
+	border-radius:5px;
+	float:left;
+	margin:5px;
+}
+article.top a {
+	text-decoration:none;
+	margin-top:10px;
+	margin-left:10px;
+}
+article.top div {
+	text-align:center;
+}
+article.top div a img {
+	width:150px;
+	height:150px;
+}
+
+/* ---- 商品一覧(運用管理者向け) ---- */
+div.list {
+	max-height: 350px;
+	width: 637px;
+	overflow: scroll;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+}
+
+div.menu_button {
+	padding-left: 15px;
+}
+
+div.menu_button input[type=submit] {
+	min-width: 100px;
+	height: 35px;
+	border-radius: 6px;
+	border: 1px solid gray;
+	padding: 0 10px;
+	margin: 10px 10px 10px 0;
+	font-weight: bold;
+}
+
+/* ---- 注文一覧画面 ---- */
+.paging {
+	text-align:center;
+}
+
+/* ---- 注文確認画面 ---- */
+.address, .pay {
+	border: 1px solid gray;
+	border-radius: 6px;
+	width: 100%;
+	height: auto;
+	margin: 15px 0;
+}
+
+/* ---- 支払い方法入力 ---- */
+.container #checkButton {
+	margin: 10px 0;
+}
+
+#card .deadline {
+	display: flex;
+}
+
+#card .deadline input[type=text] {
+	width: 14%;
+	height: 30px;
+	border-radius: 6px;
+	border: 1px solid gray;
+	margin: 10px 0;
+}
+
+.deadline .text {
+	width: 5px;
+	line-height: 51px;
+	margin: 0 7px;
+}
+
+/* ---- 買い物かご ---- */
+.itemController {
+	width: 40%;
+}
+
+.itemController form {
+	display: inline;
+}
+
+form.add {
+	margin-left: 15px;
+}
+
+form.delete {
+	margin-left: 30px;
+}
+
+.buy input[type=submit] {
+	float: left;
+	margin-right: 10px;
+}
+
+/* ----  ---- */
+form.update {
+	float: left;
+	margin-right: 10px;
+}
+
+/* ---- 商品画像(詳細、編集、削除) ---- */
+.value img {
+	width: 200px;
+	height: 200px;
+}
+
+/* ---- リンク表示(ブロック中央寄せ) ---- */
+p.link_center {
+	text-align: center;
+}
+
+/* ---- 一覧表示全般 ---- */
+div.pageLink {
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+/* ---- 買い物かご ---- */
+.err {
+	color: #FF0000;
+}

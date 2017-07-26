@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_5block">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<th:block layout:fragment="layout-main">
+		<div class="title">売れ筋商品</div>
+		<div class="container">
+			<!-- ここに処理を追加 -->
+			<div th:if="${items == null}">
+				<p>該当する商品がありません</p>
+				<span>
+					<img th:src="@{/img/common/dada.png}"></img>
+				</span>
+			</div>
+			<article th:each="item:${items}" class="top">
+				<a th:href="@{/goodsDtails/}+${item.id}" th:text="${item.name}"></a><br />
+				<div>
+					<a th:href="@{/goodsDtails/}+${item.id}">
+						<img th:if="${item.image != null}" th:src="@{/img/{image}(image=${item.image})}" />
+						<img th:if="${item.image == null}" th:src="@{/img/common/no_image.png}" />
+					</a>
+				</div>
+			</article>
+		</div>
+	</th:block>
+</body>
+</html>

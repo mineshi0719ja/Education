@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_5block">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<th:block layout:fragment="layout-main">
+		<div class="title">退会完了画面</div>
+		<div class="container">
+			<p>退会が完了しました。</p>
+			<a th:href="@{/}">トップへ戻る</a>
+		</div>
+	</th:block>
+</body>
+</html>

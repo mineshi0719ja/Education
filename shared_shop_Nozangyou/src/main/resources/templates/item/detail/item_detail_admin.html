@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_4block">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<th:block layout:fragment="layout-main">
+		<div class="title">商品詳細</div>
+		<div class="container">
+			<table>
+				<tr>
+					<td class="columnName">商品名</td>
+					<td class="value" th:text="${item.name}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">価格</td>
+					<td class="value" th:text="${item.price}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">説明文</td>
+					<td class="value" th:text="${item.description}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">商品カテゴリ</td>
+               <td class="value" th:text="${item.categoryName}"></td>
+
+				</tr>
+				<tr>
+					<td class="columnName">在庫数</td>
+					<td class="value" th:text="${item.stock}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">商品画像</td>
+					<td class="value">
+						<span th:if="${item.image != null}">
+							<img th:src="@{/img/{image}(image=${item.image})}"></img>
+						</span>
+						<span th:if="${item.image == null}">
+							<img th:src="@{/img/common/no_image.png}"></img>
+						</span></td>
+				</tr>
+			</table>
+			<form th:action="@{/item/list/admin}" class="update">
+			    <input type="submit" value="戻る" />
+			</form>
+		</div>
+	</th:block>
+</body>
+</html>

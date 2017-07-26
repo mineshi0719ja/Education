@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_4block">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<th:block layout:fragment="layout-main">
+		<div class="title">ご注文方法の最終確認</div>
+
+		<div class="container">
+			<table>
+				<tr>
+					<th>商品名</th>
+					<th>商品画像</th>
+					<th>価格</th>
+					<th>個数</th>
+					<th>小計</th>
+				</tr>
+				<tr th:each="item:${items}">
+					<td th:text="${item.name}" />
+					<td class="image"><img th:src="@{/img/{image}(image=${item.image})}"></img></td>
+					<td th:text="${item.price}" />
+					<td th:text="${item.orderNum}" />
+					<td th:text="${item.subtotal}" />
+				</tr>
+				<tr><td colspan="3" />
+					<td>合計</td>
+					<td th:text="${total}" />
+				</tr>
+			</table>
+			<br/>
+			<div class="text">お届け先</div>
+			<br/>
+				<table th:object="${orderForm}">
+					<tr>
+						<td>郵便番号</td>
+						<td th:text="*{postalCode}"></td>
+					</tr>
+					<tr>
+						<td>ご住所</td>
+						<td th:text="*{address}"></td>
+					</tr>
+					<tr>
+						<td>お名前</td>
+						<td th:text="*{name}"></td>
+					</tr>
+					<tr>
+						<td>電話番号</td>
+						<td th:text="*{phoneNumber}"></td>
+					</tr>
+				</table>
+				<br/>
+				<div class="text">お支払い方法</div>
+				<br/>
+				<table th:object="${orderForm}">
+					<tr>
+						<td>お支払い方法</td>
+						<td th:switch="*{payMethod}">
+						 	<span th:case="1">クレジットカード</span>
+							<span th:case="2">銀行振り込み</span>
+						 	<span th:case="3">着払い</span>
+						 	<span th:case="4">電子マネー</span>
+						 	<span th:case="5">コンビニ決済</span>
+						</td>
+					</tr>
+					<tr th:if="*{payMethod==1}">
+						<td>カード番号</td>
+						<td th:text="${cardNo}"></td>
+					</tr>
+					<tr th:if="*{payMethod==1}">
+						<td>有効期限</td>
+						<td th:text="*{cardPeriodMonth}+'/'+*{cardPeriodYear}" >/</td>
+					</tr>
+				</table>
+				<form th:action="@{/order/regist/order/complete}" class="update" method="post">
+					<input type="hidden" name="postalCode" th:value="${orderForm.postalCode}" />
+					<input type="hidden" name="address" th:value="${orderForm.address}" />
+					<input type="hidden" name="name" th:value="${orderForm.name}" />
+					<input type="hidden" name="phoneNumber" th:value="${orderForm.phoneNumber}" />
+					<input type="hidden" name="payMethod" th:value="${orderForm.payMethod}" />
+					<input type="hidden" name="cardNo" th:value="${orderForm.cardNo}" />
+					<input type="hidden" name="cardPeriodMonth" th:value="${orderForm.cardPeriodMonth}" />
+					<input type="hidden" name="cardPeriodYear" th:value="${orderForm.cardPeriodYear}" />
+					<input type="hidden" name="cardSecurityCode" th:value="${orderForm.cardSecurityCode}" />
+					<input type="hidden" name="cardType" th:value="${orderForm.cardType}" />
+				<input type="submit" value="ご注文確定" />
+			</form>
+			<form th:action="@{/order/regist/payment/input}" class="update" method="post" th:object="${orderForm}">
+				<input type="hidden" name="postalCode" th:value="*{postalCode}" />
+				<input type="hidden" name="address" th:value="*{address}" />
+				<input type="hidden" name="name" th:value="*{name}" />
+				<input type="hidden" name="phoneNumber" th:value="*{phoneNumber}" />
+				<input type="submit" value="戻る" />
+			</form>
+		</div>
+	</th:block>
+</body>
+</html>

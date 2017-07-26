@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_4block">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<th:block layout:fragment="layout-main">
+		<div class="title">カテゴリ削除確認</div>
+
+		<div class="container">
+			<p>以下の内容を削除します。</p>
+			<table>
+				<tr>
+					<td class="columnName">カテゴリ</td>
+					<td class="value" th:text="${category.name}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">説明</td>
+					<td class="value" th:text="${category.description}"></td>
+				</tr>
+			</table>
+			<form method="post" th:action="@{/category/delete/complete}">
+				<input type="hidden" name="id" th:value="${category.id}" />
+				<div class="input">
+					<input type="submit" value="確認" />
+					<span th:if="${categoryDelete != 0}" th:text="${errormessage}"></span>
+				</div>
+			</form>
+			<form th:action="@{/category/detail}" class="update">
+				<input type="hidden" name="id" th:value="${category.id}" />
+				<input type="submit" value="戻る" />
+			</form>
+		</div>
+	</th:block>
+</body>
+</html>

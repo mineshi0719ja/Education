@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_4block">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<th:block layout:fragment="layout-main">
+		<div class="title">会員削除確認画面</div>
+		<div class="container">
+		<p>以下の内容を削除します。</p>
+			<table>
+				<tr>
+					<td class="columnName">メールアドレス</td>
+					<td class="value" th:text="${user.email}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">パスワード</td>
+					<td class="value">********</td>
+				</tr>
+				<tr>
+					<td class="columnName">氏名</td>
+					<td class="value" th:text="${user.name}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">郵便番号</td>
+					<td class="value" th:text="${user.postalCode}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">ご住所</td>
+					<td class="value" th:text="${user.address}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">電話番号</td>
+					<td class="value" th:text="${user.phoneNumber}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">権限</td>
+					<td class="value">
+						<span th:switch="${user.authority}">
+							<span th:case="0">システム管理者</span>
+							<span th:case="1">運用管理者</span>
+							<span th:case="2">一般会員</span>
+						</span>
+					</td>
+				</tr>
+			</table>
+			<form method="post" th:action="@{/user/delete/complete/admin}">
+				<input type="hidden" name="id" th:value="${user.id}"/>
+				<input type="submit" value="確認" />
+			</form>
+		    <form th:action="@{/user/detail/admin}" class="update">
+			    <input type="hidden" name="id" th:value="${user.id}"/>
+			    <input type="submit" value="戻る" />
+			</form>
+		</div>
+	</th:block>
+</body>
+</html>

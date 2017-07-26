@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_4block">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<th:block layout:fragment="layout-main">
+		<div class="title">カテゴリ詳細</div>
+		<div class="container">
+			<table class="userDetail">
+				<tr>
+					<td class="columnName">カテゴリ名</td>
+					<td class="value" th:text="${category.name}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">カテゴリ説明文</td>
+					<td class="value" th:text="${category.description}"></td>
+				</tr>
+			</table>
+			<form th:action="@{/category/list}" class="update">
+			    <input type="submit" value="戻る" />
+			</form>
+			<form th:action="@{/category/update/input}" method="post" class="update">
+				<input type="hidden" name="id" th:value="${category.id}"  />
+				<input type="submit" value="更新" />
+			</form>
+			<form th:action="@{/category/delete/check}" method="post">
+				<input type="hidden" name="id" th:value="${category.id}" />
+				<input type="submit" value="削除" class="delete" />
+			</form>
+
+		</div>
+	</th:block>
+</body>
+</html>

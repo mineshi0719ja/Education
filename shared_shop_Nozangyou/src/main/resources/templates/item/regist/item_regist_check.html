@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_4block">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<th:block layout:fragment="layout-main">
+		<div class="title">商品登録確認画面</div>
+		<div class="container">
+			<p>以下の内容で登録します。</p>
+			<table class="itemRegist">
+				<tr>
+					<td class="columnName">商品名</td>
+					<td class="value" th:text="${itemForm.name}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">価格</td>
+					<td class="value" th:text="${itemForm.price}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">説明</td>
+					<td class="value" th:text="${itemForm.description}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">カテゴリ</td>
+					<td class="value" th:text="${itemForm.categoryName}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">在庫</td>
+					<td class="value" th:text="${itemForm.stock}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">商品画像</td>
+					<td class="value">
+						<img th:src="@{/img/{itemFileName}(itemFileName=${itemForm.image})}" th:if="${itemForm.image != null}"></img>
+						<img th:src="@{/img/common/no_image.png}" th:if="${itemForm.image == null}"></img>
+					</td>
+				</tr>
+			</table>
+			<form th:action="@{/item/regist/complete}" method="post">
+				<input type="hidden" name="name" th:value="${itemForm.name}" />
+				<input type="hidden" name="price" th:value="${itemForm.price}" />
+				<input type="hidden" name="description" th:value="${itemForm.description}" />
+				<input type="hidden" name="categoryId" th:value="${itemForm.categoryId}" />
+				<input type="hidden" name="stock" th:value="${itemForm.stock}" />
+				<input type="hidden" name="image" th:value="${itemForm.image}" />
+				<input type="submit" value="登録" />
+			</form>
+			<form th:action="@{/item/regist/input}">
+				<input type="hidden" name="name" th:value="${itemForm.name}" />
+				<input type="hidden" name="price" th:value="${itemForm.price}" />
+				<input type="hidden" name="description" th:value="${itemForm.description}" />
+				<input type="hidden" name="categoryId" th:value="${itemForm.categoryId}" />
+				<input type="hidden" name="stock" th:value="${itemForm.stock}" />
+				<input type="hidden" name="image" th:value="${itemForm.image}" />
+			    <input type="submit" value="戻る" />
+			</form>
+		</div>
+	</th:block>
+</body>
+</html>

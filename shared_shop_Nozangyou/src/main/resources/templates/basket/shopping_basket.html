@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_5block">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script th:src="@{/js/basket.js}"></script>
+<title>amazoom</title>
+</head>
+<body>
+	<th:block layout:fragment="layout-main">
+		<div class="title">買い物かごの内容</div>
+		<div class="container">
+			<div th:if="${session.basket == null}">
+				買い物かごの中身は空っぽです。<br />
+				商品を追加してください。
+			</div>
+
+			<table th:if="${session.basket != null}">
+				<tr>
+					<td class="columnName" style="width:120px;">商品名</td>
+					<td class="columnName" style="width:80px;">個数</td>
+					<td class="columnName" colspan="2">操作</td>
+				</tr>
+				<tr th:each = "item:${basket}">
+					<td ><a th:href="@{/goodsDtails/}+${item.id}" th:text="${item.name}"></a></td>
+					<td th:id="a+${item.id}" th:name="${item.name}" th:text="${item.orderNum}"></td>
+					<td>
+						<form>
+							<input th:id="c+${item.id}" type="hidden" name="stock" th:value="${item.stock}" />
+							<input type="button" value="個数-1" th:attr="onclick='subtractNum(document.getElementById(\'a'+${item.id}+'\'))'" />
+							<input type="button" value="個数+1" th:attr="onclick='addNum(document.getElementById(\'a'+${item.id}+'\'))'" />
+						</form>
+					</td>
+					<td>
+						<form th:action="@{/basket/delete/}+${index}+'/'+${itemStat.index}" method="get">
+							<input type="submit" value="削除"/>
+						</form>
+					</td>
+				</tr>
+			</table>
+			<form id="setOrderNum" th:if="${session.basket != null and session.user != null}" th:action="@{/setOrderNum}">
+				<span th:each="item:${session.basket}">
+					<input type="hidden" th:name="itemId[+${itemStat.index}+]" th:value="${item.id}" />
+					<input th:id="b+${item.id}" type="hidden" th:name="orderNum[+${itemStat.index}+]" th:value="${item.orderNum}" />
+				</span>
+				<p style="width:650px; text-align:center;">
+					<input th:each="page:${link}" type="submit" th:value="${page}" onclick="pageLink(this)" style="min-width:5px; width:8px;"/>
+				</p>
+				<input type="submit" value="ご注文のお手続き"/>
+			</form>
+			<form th:if="${session.basket != null and session.user == null}" th:action="@{/login}">
+				<input type="submit" value="ご注文のお手続き"/>
+			</form>
+
+			<form th:if="${session.basket != null}" th:action="@{/basket/allDelete}">
+				<input type="submit" value="買い物かごを空にする" class="delete"/>
+			</form>
+		</div>
+	</th:block>
+</body>
+</html>

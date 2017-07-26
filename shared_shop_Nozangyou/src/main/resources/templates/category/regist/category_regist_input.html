@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_4block">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<th:block layout:fragment="layout-main">
+		<div class="title">カテゴリ登録</div>
+
+		<div class="container">
+			<form method="post" th:action="@{/category/regist/check}" th:object="${categoryForm}">
+
+					<div th:each="error,st:${#fields.detailedErrors()}">
+						<span th:if="${error.message == 'このカテゴリ名は既に使用されています。'}"
+						th:text="${error.message}"></span>
+					</div>
+
+				<div class="text">カテゴリ名</div>
+				<div class="input">
+					<input type="text" name="name" th:value="${categoryForm.name}" th:field="*{name}"/>
+				    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+				</div>
+				<div class="text">カテゴリ説明文</div>
+				<div class="input">
+					<textarea name="description" th:inline="text" rows="6">[[${categoryForm.description}]]</textarea>
+				    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+				</div>
+				<div class="input">
+					<input type="submit" value="登録" />
+				</div>
+			</form>
+			<form th:action="@{/category/list}" class="update">
+			    <input type="submit" value="戻る" />
+			</form>
+		</div>
+	</th:block>
+</body>
+</html>

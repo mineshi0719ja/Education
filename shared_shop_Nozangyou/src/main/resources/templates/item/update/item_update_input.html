@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_4block">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<th:block layout:fragment="layout-main">
+		<div class="title">商品更新入力画面</div>
+		<div class="container">
+			<p>更新する商品を入力してください。</p>
+			<form th:action="@{/item/update/check}" enctype="multipart/form-data" method="post" th:object="${itemForm}">
+				<div class="text">商品名</div>
+				<div>
+					<input type="text" name="name" th:value="${item.name}" />
+					<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+				</div>
+				<div class="text">価格</div>
+				<div>
+					<input type="text" name="price" th:value="${item.price}" />
+					<span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+				</div>
+				<div class="text">説明文</div>
+				<div>
+					<textarea name="description" rows="6" th:field="${item.description}"></textarea>
+					<span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+				</div>
+				<div class="text">カテゴリ</div>
+				<div>
+					<select name="categoryId">
+						<option th:each="category: ${session.categories}"
+							th:value="${category.id}" th:selected="${category.id == item.categoryId}" th:text="${category.name}"></option>
+					</select>
+				</div>
+				<div class="text">在庫数</div>
+				<div>
+					<input type="text" name="stock" th:value="${item.stock}" />
+					<span th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></span>
+				</div>
+				<div class="text">商品画像</div>
+				<div>
+					<div class="value">
+						<span th:if="${item.image != null}">
+							<img th:src="@{/img/{image}(image=${item.image})}"></img>
+						</span>
+						<span th:if="${item.image == null}">
+							<img th:src="@{/img/common/no_image.png}"></img>
+						</span>
+					</div>
+					<div>
+						<input type="file" name="imageFile" />
+					</div>
+				</div>
+				<input type="hidden" name="id" th:value="${item.id}" />
+				<input type="hidden" name="image" th:value="${item.image}" />
+				<input type="submit" value="次へ" />
+			</form>
+			<form th:action="@{/item/list/admin}">
+				<input type="submit" value="戻る" />
+			</form>
+		</div>
+	</th:block>
+</body>
+</html>

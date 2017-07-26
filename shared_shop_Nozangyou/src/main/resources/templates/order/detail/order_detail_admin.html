@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_4block">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<th:block layout:fragment="layout-main">
+		<div class="title">注文詳細</div>
+		<div class="container">
+			<table class="userDetail">
+				<tr>
+					<td class="columnName">会員氏名</td>
+					<td class="value" th:text="${order.userName}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">注文日時</td>
+					<td class="value" th:text="${order.insertDate}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">支払い方法</td>
+					<td class="text" th:switch="${order.payMethod}">
+                    	<span th:case="1">クレジットカード</span>
+                    	<span th:case="2">銀行振り込み</span>
+                    	<span th:case="3">着払い</span>
+                    	<span th:case="4">電子マネー</span>
+                    	<span th:case="5">コンビニ決済</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="columnName">送付先郵便番号</td>
+					<td class="value" th:text="${order.postalCode}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">送付先住所</td>
+					<td class="value" th:text="${order.address}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">送付先氏名</td>
+					<td class="value" th:text="${order.name}"></td>
+				</tr>
+				<tr>
+					<td class="columnName">送付先電話番号</td>
+					<td class="value" th:text="${order.phoneNumber}"></td>
+				</tr>
+			</table>
+			<br />
+			<table>
+				<tr class="column">
+					<td>商品名</td>
+					<td>価格</td>
+					<td>個数</td>
+					<td>小計</td>
+				</tr>
+				<tr th:each="orderItem: ${orderItemBeans}">
+					<td th:text="${orderItem.name}"></td>
+					<td th:text="${orderItem.price}"></td>
+					<td th:text="${orderItem.orderNum}"></td>
+					<td th:text="${orderItem.subtotal}"></td>
+				</tr>
+				<tr>
+					<td colspan="2"></td>
+					<td>合計</td>
+					<td th:text="${total}"></td>
+				</tr>
+			</table>
+			<form th:action="@{/order/list/admin}" class="update">
+			    <input type="submit" value="戻る" />
+			</form>
+			<form th:action="@{/order/delete/check}" method="post">
+				<input type="hidden" name="id" th:value="${order.id}" />
+				<input type="submit" value="削除" class="delete" />
+			</form>
+		</div>
+	</th:block>
+</body>
+</html>

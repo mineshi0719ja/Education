@@ -1,0 +1,24 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<div th:fragment="layout-menu">
+		<div class="naviMenu">
+			<a th:href="@{/}" class="left"
+			onmouseover="this.style.backgroundColor = 'black';this.style.color='white'"
+			onmouseout="this.style.backgroundColor = 'white'; this.style.color='black'">トップ</a>
+			<a th:href="@{/item/list/1/1}" class="center"
+			onmouseover="this.style.backgroundColor = 'black';this.style.color='white'"
+			onmouseout="this.style.backgroundColor = 'white'; this.style.color='black'">商品一覧</a>
+			<a th:href="@{/basket/index/1}" th:class="${session.user != null} ? ${'center'} : ${'right'}"
+			onmouseover="this.style.backgroundColor = 'black';this.style.color='white'"
+			onmouseout="this.style.backgroundColor = 'white'; this.style.color='black'">買い物かご</a>
+			<a th:if="${session.user != null}" th:href="@{/order/1}" class="right"
+			onmouseover="this.style.backgroundColor = 'black';this.style.color='white'"
+			onmouseout="this.style.backgroundColor = 'white'; this.style.color='black'">注文一覧</a>
+		</div>
+	</div>
+</body>
+</html>

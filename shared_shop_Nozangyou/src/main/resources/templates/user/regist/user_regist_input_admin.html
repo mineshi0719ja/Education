@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_4block">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<th:block layout:fragment="layout-main">
+		<div class="title">会員登録入力</div>
+
+		<div class="container">
+			<form method="post" th:action="@{/user/regist/check/admin}"
+				th:object="${userForm}">
+
+				<div th:each="error,st:${#fields.detailedErrors()}">
+					<span th:if="${error.message == 'このメールアドレスは既に使用されています。'}"
+						th:text="${error.message}"></span>
+				</div>
+
+				<div class="text">メールアドレス</div>
+				<div class="input">
+					<input type="text" name="email" th:value="${userForm.email}"
+						th:field="*{email}" /> <span th:if="${#fields.hasErrors('email')}"
+						th:errors="*{email}"></span>
+				</div>
+				<div class="text">パスワード</div>
+				<div class="input">
+					<input type="password" name="password"
+						th:value="${userForm.password}" /> <span
+						th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+				</div>
+				<div class="text">氏名</div>
+				<div class="input">
+					<input type="text" name="name" th:value="${userForm.name}" /> <span
+						th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+				</div>
+				<div class="text">郵便番号</div>
+				<div class="input">
+					<input type="text" name="postalCode"
+						th:value="${userForm.postalCode}" /> <span
+						th:if="${#fields.hasErrors('postalCode')}"
+						th:errors="*{postalCode}"></span>
+				</div>
+				<div class="text">住所</div>
+				<div class="input">
+					<input type="text" name="address" th:value="${userForm.address}" />
+					<span th:if="${#fields.hasErrors('address')}"
+						th:errors="*{address}"></span>
+				</div>
+				<div class="text">電話番号</div>
+				<div class="input">
+					<input type="text" name="phoneNumber"
+						th:value="${userForm.phoneNumber}" /> <span
+						th:if="${#fields.hasErrors('phoneNumber')}"
+						th:errors="*{phoneNumber}"></span>
+				</div>
+				<div th:if="${session.user.authority == 0 or session.user.authority == 1}" class="text">権限</div>
+				<div th:if="${session.user.authority == 0}" class="input">
+					<input type="radio" name="authority" value="0" checked="checked"/>システム管理者 <input
+						type="radio" name="authority" value="1" />運用管理者 <span
+						th:if="${#fields.hasErrors('authority')}" th:errors="*{authority}"></span>
+				</div>
+				<div th:if="${session.user.authority == 1}">
+					運用管理者
+					<input type="hidden" name="authority" value="1" />
+				</div>
+				<div class="input">
+					<input type="submit" value="送信" />
+				</div>
+			</form>
+			<form th:action="@{/user/list}" class="update">
+				<input type="submit" value="戻る" />
+			</form>
+		</div>
+	</th:block>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_4block">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<th:block layout:fragment="layout-main">
+		<div class="title">会員一覧画面</div>
+		<form th:action="@{/user/regist/input/admin}">
+			<input type="submit" value="ユーザ新規登録" class="menu_button" />
+		</form>
+		<div class="container">
+			<div class="list" th:if="!${#lists.isEmpty(users)}">
+				<table>
+					<tr class="column">
+						<td>会員氏名</td>
+						<td>メールアドレス</td>
+					</tr>
+					<tr th:each="user: ${users}">
+						<td><a th:href="@{/user/detail/admin?(id=${user.id})}"
+							th:text="${user.name}"></a></td>
+						<td th:text="${user.email}"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</th:block>
+</body>
+</html>

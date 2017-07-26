@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/stylesheet.css}" />
+<title>amazoom</title>
+</head>
+<body>
+	<!-- ヘッダー -->
+	<header>
+		<div class="content">
+			<div th:replace="common/header :: layout-header"></div>
+		</div>
+	</header>
+
+	<!-- メイン -->
+	<div class="content">
+		<article>
+			<div layout:fragment="layout-main"></div>
+		</article>
+	</div>
+
+	<!-- フッター -->
+	<footer>
+		<div class="content">
+			Copyright(C) 2017 System Shared co., ltd, ALL Rights Reserved
+		</div>
+	</footer>
+</body>
+</html>

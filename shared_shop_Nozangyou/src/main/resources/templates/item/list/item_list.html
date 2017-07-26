@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_5block">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<th:block layout:fragment="layout-main">
+		<div class="title">商品一覧画面</div>
+		<div class="container">
+			<!-- ここに処理を追加 -->
+			<div th:if="${items == null}">
+				<p>該当する商品がありません</p>
+				<span>
+					<img th:src="@{/img/common/dada.png}"></img>
+				</span>
+			</div>
+				<div th:if="${items != null}">
+					<div th:if="${sort != null}" th:switch="${sort}" style="float:left; margin-top:15px;">
+						<div th:case="1">新着順</div>
+						<div th:case="2">売れ筋順</div>
+						<div th:case="3">価格の安い順</div>
+						<div th:case="4">価格の高い順</div>
+					</div>
+
+					<div th:if="${searchMethod != null}" th:switch="${searchMethod}" style="float:left; margin-top:15px;">
+						<div th:case="category" th:text="${name}"></div>
+						<div th:case="price">1000円未満の商品</div>
+						<div th:case="price1">1000円以上2000円未満の商品</div>
+						<div th:case="price2">2000円以上の3000円未満の商品</div>
+						<div th:case="price3">3000円以上の10000円未満の商品</div>
+						<div th:case="price4">10000円以上の商品</div>
+						<div th:case="detail">一括検索</div>
+						<div th:case="keyword" th:text="「+${keyword}+」が含まれる商品"></div>
+						<div th:case="keywordNull">検索結果</div>
+					</div>
+
+					<div style="float:right">並べ替え：
+					<select name="id" onChange="location.href=value;" style="width:150px">
+						<option th:value="@{/item/list/1/1}" >▼選択してください</option>
+						<option th:value="@{/item/list/1/1}" th:selected="${sort == 1}">新着順</option>
+						<option th:value="@{/item/list/2/1}" th:selected="${sort == 2}">売れ筋順</option>
+						<option th:value="@{/item/list/3/1}" th:selected="${sort == 3}">価格の安い順</option>
+						<option th:value="@{/item/list/4/1}" th:selected="${sort == 4}">価格の高い順</option></select>
+					</div>
+
+				<div th:if="${sort == null} and ${searchMethod == null}">検索結果</div>
+
+				<table>
+					<tr>
+						<th>商品名</th>
+						<th>価格</th>
+						<th>カテゴリ</th>
+						<th>画像</th>
+					</tr>
+					<tr th:each="item:${items}">
+						<td><a th:href="@{/goodsDtails/}+${item.id}" th:text="${item.name}"></a></td>
+						<td th:text="${item.price}"></td>
+						<td th:text="${item.categoryName}"></td>
+						<td class="image">
+							<img th:if="${item.image != null}" th:src="@{/img/{image}(image=${item.image})}"></img>
+							<img th:if="${item.image == null}" th:src="@{/img/common/no_image.png}"></img>
+						</td>
+					</tr>
+				</table>
+
+				<div class="paging">
+					<span th:each="page:${link}">
+						<span th:if="${sort != null}">
+							<a th:href="@{/item/list/}+${sort}+'/'+${page}" th:if="${page != index}" th:text="${page}"></a>
+							<span th:text="${page}" th:if="${page == index}"></span>
+						</span>
+
+						<span th:if="${sort == null}">
+							<span th:if="${searchMethod == 'keyword'}">
+								<span th:if="${keyword != null}">
+									<a th:href="@{/items/keywordSearch/}+${page}+'?keyword='+${keyword}" th:if="${page != index}" th:text="${page}"></a>
+								</span>
+								<span th:if="${keyword == null}">
+									<a th:href="@{/items/keywordSearch/}+${page}+'?keyword='" th:if="${page != index}" th:text="${page}"></a>
+								</span>
+							</span>
+							<span th:if="${searchMethod == 'category'}">
+								<a th:href="@{/items/categorySearch/}+${page}+'?id='+${id}" th:if="${page != index}" th:text="${page}"></a>
+							</span>
+							<span th:if="${searchMethod == 'price' or searchMethod == 'price1' or searchMethod == 'price2' or searchMethod == 'price3' or searchMethod == 'price4'}">
+								<a th:href="@{/items/}+${searchPath}+'/'+${page}" th:if="${page != index}" th:text="${page}"></a>
+							</span>
+							<span th:if="${searchMethod == 'detail'}">
+								<a th:href="@{/items/detailSearch/}+${page}" th:if="${page != index}" th:text="${page}"></a>
+							</span>
+
+							<span th:text="${page}" th:if="${page == index}"></span>
+						</span>
+					</span>
+				</div>
+			</div>
+		</div>
+	</th:block>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_4block">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body th:object="${loginForm}">
+	<th:block layout:fragment="layout-main">
+		<div class="title">商品一覧画面</div>
+
+		<form th:action="@{/item/regist/input}">
+			<input type="submit" value="商品新規登録" class="menu_button" />
+		</form>
+
+		<div class="container">
+			<div th:if="${#lists.isEmpty(items)}">
+				<p th:text="#{message.record.zero(#{item})}"></p>
+			</div>
+			<div class="list" th:if="!${#lists.isEmpty(items)}">
+				<table class="admin">
+					<tr class="column">
+						<td class="id">ID</td>
+						<td class="name">商品名</td>
+						<td class="price">価格</td>
+						<td class="category">カテゴリ</td>
+						<td>更新</td>
+						<td>削除</td>
+					</tr>
+					<!-- 商品情報 -->
+					<tr th:each="item: ${items}">
+						<td th:text="${item.id}"></td>
+						<td><a th:href="@{/item/detail/admin/{id}(id=${item.id})}"
+							th:text="${item.name}"></a></td>
+						<td th:text="${item.price}"></td>
+						<td th:text="${item.categoryName}"></td>
+						<td>
+							<form th:action="@{/item/update/input}" method="post">
+								<input type="hidden" name="id" th:value="${item.id}" />
+								<input type="submit" value="更新" class="list"/>
+							</form>
+						</td>
+						<td>
+							<form th:action="@{/item/delete/check}" method="post">
+								<input type="hidden" name="id" th:value="${item.id}" />
+								<input type="submit" value="削除" class="list delete" />
+							</form>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</th:block>
+</body>
+</html>

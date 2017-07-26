@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_5block">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>amazoom</title>
+</head>
+<body>
+	<th:block layout:fragment="layout-main">
+		<div class="title">注文一覧</div>
+		<div class="container">
+			<div th:if="${#lists.isEmpty(orders)}">
+				<p th:text="#{message.record.zero(#{order})}"></p>
+			</div>
+			<div class="list" th:if="!${#lists.isEmpty(orders)}">
+				<table>
+					<tr>
+						<td class="columnName">注文日時</td>
+						<td class="columnName">支払い方法</td>
+						<td class="columnName">合計金額</td>
+					</tr>
+					<tr th:each="order:${orders}">
+						<td class="text">
+							<a th:href="@{/order/detail?(id=${order.id})}" th:text="${order.insertDate}"></a>
+						</td>
+						<td class="text" th:switch="${order.payMethod}">
+							<span th:case="1">クレジットカード</span>
+							<span th:case="2">銀行振り込み</span>
+							<span th:case="3">着払い</span>
+							<span th:case="4">電子マネー</span>
+							<span th:case="5">コンビニ決済</span>
+						</td>
+						<td class="text" th:text="${order.total}"></td>
+					</tr>
+				</table>
+			</div>
+			<div class="paging">
+			<span th:each="page:${link}">
+				<a th:href="@{/order/}+${page}" th:if="${page != index}" th:text="${page}"></a>
+				<span th:text="${page}" th:if="${page == index}"></span>
+			</span>
+			</div>
+		</div>
+	</th:block>
+</body>
+</html>

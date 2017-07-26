@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_4block">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script th:src="@{/js/payment_input.js}" type="text/javascript"></script>
+</head>
+<body>
+	<th:block layout:fragment="layout-main">
+		<div class="title">お支払い方法の選択</div>
+
+		<div class="container">
+			<form method="post" th:action="@{/order/regist/order/check}"
+				th:object="${orderForm}">
+
+				<div><input type="radio" name="payMethod" onclick="payChange()" checked="checked" value="1" />クレジットカード</div>
+				<div><input type="radio" name="payMethod" onclick="payChange()" value="2" />銀行振り込み</div>
+				<div><input type="radio" name="payMethod" onclick="payChange()" value="3" />着払い</div>
+				<div><input type="radio" name="payMethod" onclick="payChange()" value="4" />電子マネー</div>
+				<div><input type="radio" name="payMethod" onclick="payChange()" value="5" />コンビニ決済</div>
+
+				<div id="card">
+					<div class="text">カード番号</div>
+					<div class="input">
+						<input type="text" th:field="*{cardNo}" />
+						<span
+						th:if="${#fields.hasErrors('cardNo')}"
+						th:errors="*{cardNo}"></span>
+					</div>
+
+					<div class="text">有効期限</div>
+					<div class="input">
+						<div>
+							<select th:field="*{cardPeriodMonth}" >
+								<option th:each="month:${session.months}" th:text="${month}" th:value="${month}"></option>
+							</select>
+							/
+							<select th:field="*{cardPeriodYear}" >
+								<option th:each="year:${session.years}" th:text="${year}" th:value="${year}"></option>
+							</select>
+							<span th:text="${dateError}"></span>
+						</div>
+					</div>
+
+					<div class="text">セキュリティコード(クレジットカードの背面に記載されている3桁の番号)</div>
+					<div class="input">
+						<input type="text" th:field="*{cardSecurityCode}" />
+						<span
+						th:if="${#fields.hasErrors('cardSecurityCode')}"
+						th:errors="*{cardSecurityCode}"></span>
+					</div>
+
+					<div class="text">カード種別</div>
+					<div class="input">
+						<select th:field="*{cardType}">
+							<option value="1" >Master Card</option>
+							<option value="2" >JCB</option>
+							<option value="3" >VISA</option>
+							<option value="4" >DC</option>
+							<option value="5" >UC</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="input">
+					<input type="hidden" name="postalCode" th:value="${orderForm.postalCode}" />
+					<input type="hidden" name="address" th:value="${orderForm.address}" />
+					<input type="hidden" name="name" th:value="${orderForm.name}" />
+					<input type="hidden" name="phoneNumber" th:value="${orderForm.phoneNumber}" />
+					<input type="submit" value="次へ" />
+				</div>
+			</form>
+			<form th:action="@{/adress_input}" class="update">
+				<input type="submit" value="戻る" />
+			</form>
+		</div>
+	</th:block>
+</body>
+</html>

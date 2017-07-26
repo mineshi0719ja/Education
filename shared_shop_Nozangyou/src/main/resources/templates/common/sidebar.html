@@ -1,0 +1,96 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script th:src="@{/js/sidebar.js}"></script>
+</head>
+<body>
+	<div th:fragment="layout-sidebar">
+		<!-- 検索メニュー(一般会員用) -->
+		<script th:src="@{/js/sidebar.js}"></script>
+
+		<div th:if="${session.user == null or session.user.authority == 2}">
+			<div class="title">キーワード検索</div>
+			<div class="menu">
+				<form th:action="@{/items/keywordSearch/1}">
+					<input type="text" name="keyword" style="width:145px"
+							th:value="${keyword}"/>
+					<input type="submit" value="検索"/>
+				</form>
+			</div>
+
+			<div class="title">カテゴリ</div>
+			<div class="menu">
+				<form th:action="@{/items/categorySearch/1}">
+					<select name="id">
+						<option th:each="category: ${session.categories}"
+							th:value="${category.id}" th:text="${category.name}"
+							th:selected="${category.Id == id}"></option>
+					</select> <input type="submit" value="検索" />
+				</form>
+			</div>
+
+			<div class="title">価格帯検索</div>
+			<div class="menu" style="font-size:15px;">
+				<a th:href="@{/items/searchWithQuery/1}" class="price top"
+				onmouseover="this.style.backgroundColor = 'black';this.style.color='white'"
+				onmouseout="this.style.backgroundColor = 'white'; this.style.color='black'">1000円未満</a>
+				<a th:href="@{/items/searchWith1Query/1}" class="price middle"
+				onmouseover="this.style.backgroundColor = 'black';this.style.color='white'"
+				onmouseout="this.style.backgroundColor = 'white'; this.style.color='black'">1000円以上2000円未満</a>
+				<a th:href="@{/items/searchWith2Query/1}" class="price middle"
+				onmouseover="this.style.backgroundColor = 'black';this.style.color='white'"
+				onmouseout="this.style.backgroundColor = 'white'; this.style.color='black'">2000円以上3000円未満</a>
+				<a th:href="@{/items/searchWith3Query/1}" class="price middle"
+				onmouseover="this.style.backgroundColor = 'black';this.style.color='white'"
+				onmouseout="this.style.backgroundColor = 'white'; this.style.color='black'">3000円以上10000円未満</a>
+				<a th:href="@{/items/searchWith4Query/1}" class="price bottom"
+				onmouseover="this.style.backgroundColor = 'black';this.style.color='white'"
+				onmouseout="this.style.backgroundColor = 'white'; this.style.color='black'">10000円以上</a>
+			</div>
+
+			<div class="title">一括検索</div>
+			<div class="menu">
+				<form th:action="@{/items/detailSearch/1}" onsubmit="return checkSelectedNumber();">
+					<input type="checkbox" name="category" id="category" value="true" th:checked="${checkCategory}"/>カテゴリ
+					<select name="id">
+						<option th:each="category: ${session.categories}"
+							th:value="${category.id}" th:text="${category.name}"
+							th:selected="${category.Id == id}"></option>
+					</select>
+					<br/>
+					<input type="checkbox" name="price" id="price" value="true" th:checked="${checkPrice}"/>価格帯<br/>
+					￥<input type="number" name="priceMin" id="priceMin" style="width:60px" th:value="${priceMin}"/>
+					～￥<input type="number" name="priceMax" id="priceMax" style="width:60px" th:value="${priceMax}"/>
+					<br/>
+					<input type="checkbox" name="keyword" id="keyword" value="true" th:checked="${checkKeyword}"/>キーワード<br/>
+					<input type="text" name="keyword1" id="keyword1" style="width:145px"
+							th:value="${keyword}"/>
+
+					<br /><span id="searchAlert"></span>
+					<input type="submit" id="detaiSearch" value="検索"/>
+				</form>
+			</div>
+		</div>
+
+		<!-- メニュー(運用管理者、及びシステム管理者用) -->
+		<div th:if="${session.user != null and session.user.authority != 2}">
+			<div class="title">メニュー</div>
+			<div class="menu">
+				<p>
+					<a th:href="@{/user/list}">ユーザ一覧表示</a>
+				</p>
+				<p th:if="${session.user.authority == 1}">
+					<a th:href="@{/order/list/admin}">注文一覧表示</a>
+				</p>
+				<p th:if="${session.user.authority == 1}">
+					<a th:href="@{/item/list/admin}">商品一覧表示</a>
+				</p>
+				<p th:if="${session.user.authority == 1}">
+					<a th:href="@{/category/list}">カテゴリ一覧表示</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

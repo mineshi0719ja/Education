@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_4block">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body th:object="${userForm}">
+	<th:block layout:fragment="layout-main">
+		<div class="title">会員編集入力</div>
+		<div class="container">
+			<form method="post" th:action="@{/user/update/check/admin}">
+				<div th:each="error,st:${#fields.detailedErrors()}">
+					<span th:if="${error.message == 'このメールアドレスは既に使用されています。'}"
+					th:text="${error.message}"></span>
+				</div>
+
+				<div class="text">メールアドレス</div>
+				<div class="input">
+					<input type="text" name="email" th:value="${user.email}"/>
+					<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+				</div>
+				<div class="text">パスワード</div>
+				<div class="input">
+					<input type="password" name="password" th:value="${user.password}"/>
+				    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+				</div>
+				<div class="text">氏名</div>
+				<div class="input">
+					<input type="text" name="name" th:value="${user.name}"/>
+				    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+				</div>
+				<div class="text">郵便番号</div>
+				<div class="input">
+					<input type="text" name="postalCode" th:value="${user.postalCode}"/>
+				    <span th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}"></span>
+				</div>
+				<div class="text">住所</div>
+				<div class="input">
+					<input type="text" name="address" th:value="${user.address}"/>
+				    <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+				</div>
+				<div class="text">電話番号</div>
+				<div class="input">
+					<input type="text" name="phoneNumber" th:value="${user.phoneNumber}"/>
+				    <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+				</div>
+				<input type="hidden" name="authority" th:value="${user.authority}" />
+				<input type="hidden" name="id" th:value="${user.id}"/>
+				<div class="input">
+					<input type="submit" value="送信" />
+				</div>
+			</form>
+		    <form th:action="@{/user/detail/admin}" class="update">
+			    <input type="hidden" name="id" th:value="${user.id}"/>
+			    <input type="submit" value="戻る" />
+			</form>
+		</div>
+	</th:block>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="common/layout_4block">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<th:block layout:fragment="layout-main">
+		<div class="title">カテゴリ登録確認</div>
+		<div class="container">
+			<p>以下の内容で登録します。</p>
+			<table>
+				<tr>
+					<td class="columnName">カテゴリ</td>
+					<td class="value" th:text="${categoryForm.name}"></td>
+				</tr>
+
+				<tr>
+					<td class="columnName">説明</td>
+					<td class="value" th:text="${categoryForm.description}"></td>
+				</tr>
+			</table>
+
+			<form method="post" th:action="@{/category/regist/complete}">
+				<input type="hidden" name="name" th:value="${categoryForm.name}" />
+				<input type="hidden" name="description" th:value="${categoryForm.description}" />
+				<div class="input">
+					<input type="submit" value="登録" />
+				</div>
+			</form>
+			<form th:action="@{/category/regist/input}" class="update">
+				<input type="hidden" name="name" th:value="${categoryForm.name}" />
+				<input type="hidden" name="description" th:value="${categoryForm.description}" />
+				<input type="submit" value="戻る" />
+			</form>
+		</div>
+	</th:block>
+</body>
+</html>
